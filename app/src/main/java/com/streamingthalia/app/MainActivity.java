@@ -151,7 +151,7 @@ public class MainActivity extends Activity {
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                setProgress(newProgress);
+                updateProgress(newProgress);
             }
         });
 
@@ -308,7 +308,7 @@ public class MainActivity extends Activity {
     }
 
     /** Glides the bar to the new value instead of jumping, then fades it away at 100%. */
-    private void setProgress(int newProgress) {
+    private void updateProgress(int newProgress) {
         float target = newProgress / 100f;
         if (progressBar.getAlpha() == 0f && newProgress < 100) {
             progressBar.setScaleX(0f);
