@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
     // ============================================
     // ⚠️ CAMBIA ESTA URL A LA DE TU SERVIDOR ⚠️
     // ============================================
-    private static final String SERVER_URL = "https://wallrush.online/";
+    private static final String SERVER_URL = "https://stream.ventasthalia.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
