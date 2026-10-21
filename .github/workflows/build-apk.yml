@@ -25,14 +25,28 @@ jobs:
 
     # No separate SDK setup: the ubuntu-24.04 runner image ships the Android SDK with
     # licenses accepted (ANDROID_HOME). android-actions/setup-android@v3 began failing in Oct 2026.
-    - name: Show Android SDK
-      run: echo "ANDROID_HOME=$ANDROID_HOME" && ls "$ANDROID_HOME/platforms" "$ANDROID_HOME/build-tools"
+    # Make sure the exact SDK pieces the app compiles against are present (no-op when they already are)
+    - name: Android SDK packages
+      run: |
+        echo "::notice::preinstalled platforms: $(ls "$ANDROID_HOME/platforms" | tr '\n' ' ') | build-tools: $(ls "$ANDROID_HOME/build-tools" | tr '\n' ' ')"
+        SDKM=$(ls -d "$ANDROID_HOME"/cmdline-tools/*/bin/sdkmanager 2>/dev/null | head -1)
+        if [ -z "$SDKM" ]; then echo "::warning::sdkmanager not found"; exit 0; fi
+        yes | "$SDKM" --licenses > /dev/null || true
+        "$SDKM" "platforms;android-34" "build-tools;34.0.0" > /dev/null || echo "::warning::sdkmanager install failed"
 
     - name: Create Gradle Wrapper
       run: gradle wrapper --gradle-version 8.2
 
+    # On failure, the real error is published as an annotation: annotations are public,
+    # raw logs need a signed-in account.
     - name: Build Debug APK
-      run: ./gradlew assembleDebug
+      run: |
+        set -o pipefail
+        if ! ./gradlew assembleDebug --console=plain 2>&1 | tee build.log; then
+          MSG=$(grep -E "error:|^e: |What went wrong|Could not|Exception|^> |FAILED" build.log | head -60 | sed 's/%/%25/g' | awk '{printf "%s%%0A", $0}')
+          echo "::error title=Build failed::$MSG"
+          exit 1
+        fi
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
