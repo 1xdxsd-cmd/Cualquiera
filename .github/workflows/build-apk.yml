@@ -7,7 +7,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # pinned: ubuntu-latest started moving to Ubuntu 26 (Oct 2026) and the Android SDK setup broke there
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout
