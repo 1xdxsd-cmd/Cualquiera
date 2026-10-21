@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
     // ============================================
     // ⚠️ CAMBIA ESTA URL A LA DE TU SERVIDOR ⚠️
     // ============================================
-    private static final String SERVER_URL = "https://stream.ventasthalia.com/";
+    private static final String SERVER_URL = "http://144.126.137.93:8081/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
