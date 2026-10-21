@@ -23,8 +23,10 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+    # No separate SDK setup: the ubuntu-24.04 runner image ships the Android SDK with
+    # licenses accepted (ANDROID_HOME). android-actions/setup-android@v3 began failing in Oct 2026.
+    - name: Show Android SDK
+      run: echo "ANDROID_HOME=$ANDROID_HOME" && ls "$ANDROID_HOME/platforms" "$ANDROID_HOME/build-tools"
 
     - name: Create Gradle Wrapper
       run: gradle wrapper --gradle-version 8.2
