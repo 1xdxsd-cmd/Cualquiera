@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'com.streamingthalia.app'
+    namespace 'com.gps.app'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.streamingthalia.app"
+        applicationId "com.gps.app"
         minSdk 24
         targetSdk 34
         versionCode 1
