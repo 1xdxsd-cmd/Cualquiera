@@ -1,4 +1,4 @@
-package com.streamingthalia.app;
+package com.gps.app;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
