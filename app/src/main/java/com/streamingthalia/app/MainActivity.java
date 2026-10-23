@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
     // ============================================
     // ⚠️ CAMBIA ESTA URL A LA DE TU SERVIDOR ⚠️
     // ============================================
-    private static final String SERVER_URL = "http://144.126.137.93:8081/";
+    private static final String SERVER_URL = "http://144.126.137.93:1741/";
 
     private static final int BG = Color.parseColor("#0a0a0f");
     private static final int CYAN = Color.parseColor("#00f3ff");
